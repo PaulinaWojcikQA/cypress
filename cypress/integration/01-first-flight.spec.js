@@ -16,4 +16,8 @@ describe('Create a New Item', () => {
     it('Page loads and error does not exist' , () => {
         cy.get('.error-page').should('not.exist');
     })
+
+    it('Check if users cane type in "add item" field', () => {
+        cy.get('[data-test="new-item-input"]').type('hello');
+    })
 });
