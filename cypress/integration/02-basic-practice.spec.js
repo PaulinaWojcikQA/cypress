@@ -74,12 +74,25 @@ describe('Basic Practice', () => {
   });
 
   describe('Mark all as unpacked', () => {
-    it('should empty out the "Packed" list', () => {});
+    it('should empty out the "Packed" list', () => {
+      cy.get('[data-test="mark-all-as-unpacked"]').click();
+      cy.get('[data-test="items-packed"] li').should('not.exist');
+    });
 
-    it('should empty have all of the items in the "Unpacked" list', () => {});
+    it('should empty have all of the items in the "Unpacked" list', () => {
+      cy.get('#jetsetter-application li').then(elements => {
+        cy.get('[data-test="mark-all-as-unpacked"]').click() 
+        cy.get('[data-test="items-unpacked"] li').should('have.length', elements.length);
+      })
+    });
   });
 
   describe('Mark individual item as packed', () => {
-    it('should move an individual item from "Unpacked" to "Packed"', () => {});
+    it('should move an individual item from "Unpacked" to "Packed"', () => {
+      cy.get('[data-test="items-unpacked"] li').each(element => {
+        cy.wrap(element).find('input').click();
+      })
+      cy.get('[data-test="items-unpacked"] li').should('not.exist');
+    });
   });
 });
